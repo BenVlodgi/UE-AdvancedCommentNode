@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "AdvancedCommentNode",
+	"Description": "",
+	"Category": "Editor",
+	"CreatedBy": "Dream Seed LLC",
+	"CreatedByURL": "",
+	"DocsURL": "https://github.com/BenVlodgi/UE-AdvancedCommentNode",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/BenVlodgi/UE-AdvancedCommentNode/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "AdvancedCommentNode",
+			"Type": "Editor",
+			"LoadingPhase": "PreLoadingScreen"
+		}
+	]
+}
