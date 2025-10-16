@@ -21,7 +21,8 @@ public class AdvancedCommentNode : ModuleRules
                 "SlateCore",
                 "UnrealEd",
                 "GraphEditor",
-                "DeveloperSettings"
+                "DeveloperSettings",
+                "RigVMDeveloper"
             });
     }
 }
