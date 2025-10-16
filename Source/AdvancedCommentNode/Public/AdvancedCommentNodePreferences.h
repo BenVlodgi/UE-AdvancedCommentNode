@@ -38,6 +38,10 @@ class ADVANCEDCOMMENTNODE_API UAdvancedCommentNodePreferences : public UDevelope
 	GENERATED_BODY()
 
 public:
+    // Enable the functionality of this plugin.
+    UPROPERTY(config, EditAnywhere, Category = CommentNodes)
+    bool bEnableAdvancedCommentNodes = true;
+
 	// How moving comment nodes should affect their contents.
     UPROPERTY(config, EditAnywhere, Category = CommentNodes)
     ECommentNodeMoveBehavior CommentNodesMoveBehavior = ECommentNodeMoveBehavior::UseNodeMoveMode;
@@ -46,11 +50,7 @@ public:
     UPROPERTY(config, EditAnywhere, Category = CommentNodes, meta = (EditConditionHides = "true", EditCondition = "CommentNodesMoveBehavior == ECommentNodeMoveBehavior::UseNodeMoveMode"))
     ECommentNodeMoveShiftModifier CommentNodesMoveShiftModifier = ECommentNodeMoveShiftModifier::ForceMoveContents;
 
-    UAdvancedCommentNodePreferences()
-    {
-        CategoryName = TEXT("ContentEditors");
-        SectionName = TEXT("GraphEditors");
-    }
+    UAdvancedCommentNodePreferences();
 
     static FORCEINLINE UAdvancedCommentNodePreferences* Get()
     {
@@ -59,4 +59,9 @@ public:
 
         return Settings;
     }
+
+#if WITH_EDITOR
+    virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif // WITH_EDITOR
+
 };

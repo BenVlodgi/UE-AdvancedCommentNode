@@ -4,22 +4,49 @@
 
 
 #include "AdvancedCommentNodeFactory.h"
+#include "AdvancedCommentNodePreferences.h"
 #include "EdGraphUtilities.h"
+
 
 #define LOCTEXT_NAMESPACE "FAdvancedCommentNodeModule"
 
 void FAdvancedCommentNodeModule::StartupModule()
 {
-    AdvancedCommentNodeFactory = MakeShareable(new FAdvancedCommentNodeFactory());
-    FEdGraphUtilities::RegisterVisualNodeFactory(AdvancedCommentNodeFactory);
+	bModuleIsRunning = true;
+    UpdateEnabledStatus();
 }
 
 void FAdvancedCommentNodeModule::ShutdownModule()
 {
-    if (AdvancedCommentNodeFactory.IsValid())
+    bModuleIsRunning = false;
+    SetEnabled(false);
+}
+
+void FAdvancedCommentNodeModule::UpdateEnabledStatus()
+{
+    SetEnabled(bModuleIsRunning && UAdvancedCommentNodePreferences::Get()->bEnableAdvancedCommentNodes);
+}
+void FAdvancedCommentNodeModule::SetEnabled(bool bEnabled)
+{
+    if(bModuleIsEnabled == bEnabled)
+	{
+		return;
+	}
+
+	bModuleIsEnabled = bEnabled;
+
+    if (bEnabled)
     {
-        FEdGraphUtilities::UnregisterVisualNodeFactory(AdvancedCommentNodeFactory);
-        AdvancedCommentNodeFactory.Reset();
+        AdvancedCommentNodeFactory = MakeShareable(new FAdvancedCommentNodeFactory());
+        FEdGraphUtilities::RegisterVisualNodeFactory(AdvancedCommentNodeFactory);
+    }
+    else
+    {
+        if (AdvancedCommentNodeFactory.IsValid())
+        {
+            FEdGraphUtilities::UnregisterVisualNodeFactory(AdvancedCommentNodeFactory);
+            AdvancedCommentNodeFactory.Reset();
+        }
     }
 }
 
